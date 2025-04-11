@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opossum Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #fff;
+            padding-bottom: 60px; /* Space for footer */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 10vh; /* Push content down slightly */
+            flex-grow: 1;
+        }
+
+        .logo {
+            width: 272px; /* Similar size to Google's logo */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 28px;
+        }
+
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            border: 1px solid #dfe1e5;
+            box-shadow: none;
+            border-radius: 24px; /* Rounded corners */
+            width: 580px; /* Standard Google search bar width */
+            max-width: 90vw;
+            height: 44px;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+
+        .search-box:hover,
+        .search-box:focus-within {
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
+            border-color: rgba(223,225,229,0);
+        }
+
+        .search-input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            padding: 0 20px;
+            font-size: 16px;
+            background-color: transparent; /* Input takes background of container */
+            height: 100%;
+        }
+
+        .search-buttons {
+            margin-top: 28px;
+        }
+
+        .search-button {
+            background-color: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            color: #3c4043;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            margin: 11px 4px;
+            padding: 0 16px;
+            line-height: 27px;
+            height: 36px;
+            min-width: 54px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .search-button:hover {
+            box-shadow: 0 1px 1px rgba(0,0,0,.1);
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            color: #202124;
+        }
+
+        .search-button:focus {
+             border: 1px solid #4285f4;
+             outline: none;
+        }
+
+        .footer {
+            position: fixed; /* Keep footer at bottom */
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f2f2f2; /* Light grey like Google's footer */
+            padding: 15px 0;
+            border-top: 1px solid #e4e4e4;
+            text-align: center;
+            font-size: 14px;
+            color: #70757a; /* Grey text */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Opossum_2.jpg/292px-Opossum_2.jpg" alt="Opossum Search Logo" class="logo">
+
+        <form class="search-form" onsubmit="return handleSearch(event)">
+            <div class="search-box">
+                <input type="text" id="searchQuery" class="search-input" title="Search" aria-label="Search">
+                <!-- Optional: Add microphone/search icons here if desired, requires more complex SVG/image handling -->
+            </div>
+            <div class="search-buttons">
+                <input type="submit" value="Opossum Search" class="search-button">
+                <!-- You could add an "I'm Feeling Lucky" style button here if needed -->
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+        Powered by opossum search
+    </div>
+
+    <script>
+        function handleSearch(event) {
+            // Prevent the form from submitting traditionally
+            event.preventDefault();
+
+            // Get the search query from the input field
+            var queryInput = document.getElementById('searchQuery');
+            var originalQuery = queryInput.value.trim(); // Remove leading/trailing whitespace
+
+            // Only proceed if the query is not empty
+            if (originalQuery) {
+                // Add "opossum" to the query
+                var newQuery = originalQuery + " opossum";
+
+                // Encode the new query for use in a URL
+                var encodedQuery = encodeURIComponent(newQuery);
+
+                // Construct the Google search URL
+                var googleSearchUrl = "https://www.google.com/search?q=" + encodedQuery;
+
+                // Redirect the user to the Google search results page
+                window.location.href = googleSearchUrl;
+            }
+
+            // Return false to be absolutely sure the default form submission is cancelled
+            return false;
+        }
+
+        // Optional: Focus the search input when the page loads
+        window.onload = function() {
+            document.getElementById('searchQuery').focus();
+        };
+    </script>
+
+</body>
+</html>
